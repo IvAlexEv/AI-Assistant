@@ -30,6 +30,18 @@ In pratica, a ogni task:
 
 Burp e la cartella `Result` sono la fonte di verità primaria.
 
+## File di lavoro
+ 
+Quando Claude ha bisogno di creare file di lavoro (per il task corrente o per qualsiasi task futuro che gli verrà richiesto) li salva nella cartella `files`.
+Vale per appunti, script di supporto, liste di endpoint/payload, bozze, output intermedi e qualunque artefatto temporaneo o di lavorazione.
+ 
+Distinzione dalle altre cartelle:
+ 
+- **`files`** — materiale di lavoro prodotto da Claude durante le attività.
+- **`Result`** — risultati consolidati degli agenti eseguiti con le skill (sola lettura ai fini del contesto: si consulta, non è la destinazione dei file di lavoro).
+
+Se un file di lavoro diventa un risultato da conservare, va spostato/salvato secondo la convenzione dei risultati; per tutto il resto la destinazione è `files`.
+
 ## Chiedere quando serve
  
 Claude **chiede sempre** quando qualcosa non è chiaro o quando ha bisogno di informazioni per procedere bene.
