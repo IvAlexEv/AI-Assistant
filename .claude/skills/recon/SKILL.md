@@ -1,14 +1,14 @@
 ---
 name: recon
 description: >-
-  Fase di ricognizione (recon) su un target web/API in-scope. Naviga e ispeziona l'applicazione in modo ordinato e accurato per comprenderne funzionalità, stack, configurazione ed endpoint partendo SEMPRE dalla cronologia Burp e dalla cartella Result.
+  Fase di ricognizione (recon) su un target web/API in-scope. Naviga e ispeziona l'applicazione in modo ordinato e accurato per comprenderne funzionalità, stack, configurazione ed endpoint partendo SEMPRE dalla cronologia Burp e dalla cartella RESULT.
   Usare quando il tester chiede di fare recon/ricognizione/mappatura di un target, di capire come funziona un'applicazione, o di raccogliere endpoint e superfici d'attacco.
-  Produce un file di stato consolidato in Result da poter usare nelle altre skill.
+  Produce un file di stato consolidato in RESULT da poter usare nelle altre skill.
 ---
  
 # Skill: recon
  
-Ricognizione ordinata e accurata di un target web/API **in-scope**, per comprendere l'applicazione e tutte le sue funzionalità e per raccogliere le informazioni che serviranno alle skill successive. Al termine produce un **file di stato** in `Result`.
+Ricognizione ordinata e accurata di un target web/API **in-scope**, per comprendere l'applicazione e tutte le sue funzionalità e per raccogliere le informazioni che serviranno alle skill successive. Al termine produce un **file di stato** in `RESULT`.
  
 Questa skill segue le regole del `CLAUDE.md` del progetto. In particolare: solo target in-scope, tutte le interazioni verso il target passano dai tool MCP di Burp, e se manca un'informazione **si chiede** invece di assumere.
  
@@ -18,7 +18,7 @@ Questa skill segue le regole del `CLAUDE.md` del progetto. In particolare: solo 
  
 1. **Verifica scope.** Conferma che il target richiesto sia tra quelli autorizzati nel `CLAUDE.md`. Se non lo è o è ambiguo → fermati e chiedi.
 2. **Leggi lo stato esistente.**
-   - Controlla la cartella `Result`: se esiste già un file di recon per questo target, **riprendi da lì** (aggiorna, non ricominciare da zero).
+   - Controlla la cartella `RESULT`: se esiste già un file di recon per questo target, **riprendi da lì** (aggiorna, non ricominciare da zero).
    - Leggi la cronologia Burp (`get_proxy_http_history` / `get_proxy_http_history_regex`, filtrando per host in-scope) e la cronologia WebSocket se presente. Spesso qui c'è già molto materiale: sfruttalo prima di generare traffico nuovo.
 3. **Raccogli il contesto mancante dal tester.** Se per navigare bene servono cose che non sono nella history né nel `CLAUDE.md`, chiedile prima di partire, ad esempio:
    - Credenziali di test e ruoli disponibili (utente, admin, ecc.).
@@ -53,7 +53,7 @@ Procedi con ordine, non a caso:
 4. **Superfici API**: per REST ricostruisci le operazioni e le collezioni; per GraphQL verifica l'introspection (se lecita nel contesto) e mappa query/mutation.
 5. **Copertura per ruolo**: se hai più utenti/ruoli, ripeti la mappatura per ciascuno, annotando le differenze di accesso (utile poi per test di autorizzazione).
 
-Mantieni traccia di cosa hai già visitato per non duplicare. File di lavoro intermedi (liste grezze, appunti, output di parsing dei JS) vanno nella cartella `files`; il risultato consolidato andrà in `Result` (§4). Se durante la navigazione qualcosa non è chiaro o ti manca un accesso, **chiedi**.
+Mantieni traccia di cosa hai già visitato per non duplicare. File di lavoro intermedi (liste grezze, appunti, output di parsing dei JS) vanno nella cartella `files`; il risultato consolidato andrà in `RESULT` (§4). Se durante la navigazione qualcosa non è chiaro o ti manca un accesso, **chiedi**.
  
 ---
  
@@ -71,9 +71,9 @@ Consolida quanto raccolto e ragiona sull'applicazione:
  
 ## 4. Output: file di stato del recon
  
-Al termine produci **un unico file accurato** nella cartella `Result`, che rappresenta la memoria e lo stato attuale della fase di recon e sarà la base per le skill successive.
+Al termine produci **un unico file accurato** nella cartella `RESULT`, che rappresenta la memoria e lo stato attuale della fase di recon e sarà la base per le skill successive.
  
-- **Cartella**: `Result`
+- **Cartella**: `RESULT`
 - **Nome suggerito**: `recon_<host-o-target>.md`
 - Se un file di recon per lo stesso target esiste già, **aggiornalo** mantenendo lo storico delle sezioni, invece di crearne uno nuovo scollegato.
 

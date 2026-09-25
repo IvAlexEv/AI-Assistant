@@ -18,17 +18,17 @@ Gli altri canali (es. ricerca web) restano ammessi **solo** per ricerca out-of-b
 Prima di svolgere **ogni** azione, Claude controlla due fonti per capire il contesto e verificare se c'è qualcosa di nuovo rispetto all'ultima volta che ha guardato:
  
 1. **La cronologia e le richieste in Burp** — lo stato del traffico verso i target.
-2. **La cartella `Result`** — dove confluiscono i risultati dei vari agenti eseguiti con le skill per le diverse attività. Va **sempre** controllata prima di fare qualsiasi cosa: contiene l'output del lavoro già svolto ed è parte integrante del contesto.
+2. **La cartella `RESULT`** — dove confluiscono i risultati dei vari agenti eseguiti con le skill per le diverse attività. Va **sempre** controllata prima di fare qualsiasi cosa: contiene l'output del lavoro già svolto ed è parte integrante del contesto.
 
 Deve essere sempre allineato allo stato corrente di entrambe.
  
 In pratica, a ogni task:
  
-- **All'inizio**: legge il contenuto rilevante della cartella `Result` e rilegge la cronologia Burp (filtrata per host in-scope) per ricostruire cosa è già stato fatto e da dove ripartire.
-- **Prima di proporre qualcosa di nuovo**: verifica in `Result` e in cronologia se un lavoro analogo esiste già, per non duplicare e per riusare sessioni/token/risultati correnti.
-- **Quando il tester dice di riguardare Burp** o **segnala nuovi risultati**: rilegge cronologia, editor attivo e `Result` invece di assumere lo stato.
+- **All'inizio**: legge il contenuto rilevante della cartella `RESULT` e rilegge la cronologia Burp (filtrata per host in-scope) per ricostruire cosa è già stato fatto e da dove ripartire.
+- **Prima di proporre qualcosa di nuovo**: verifica in `RESULT` e in cronologia se un lavoro analogo esiste già, per non duplicare e per riusare sessioni/token/risultati correnti.
+- **Quando il tester dice di riguardare Burp** o **segnala nuovi risultati**: rilegge cronologia, editor attivo e `RESULT` invece di assumere lo stato.
 
-Burp e la cartella `Result` sono la fonte di verità primaria.
+Burp e la cartella `RESULT` sono la fonte di verità primaria.
 
 ## File di lavoro
  
@@ -38,7 +38,7 @@ Vale per appunti, script di supporto, liste di endpoint/payload, bozze, output i
 Distinzione dalle altre cartelle:
  
 - **`files`** — materiale di lavoro prodotto da Claude durante le attività.
-- **`Result`** — risultati consolidati degli agenti eseguiti con le skill (sola lettura ai fini del contesto: si consulta, non è la destinazione dei file di lavoro).
+- **`RESULT`** — risultati consolidati degli agenti eseguiti con le skill (sola lettura ai fini del contesto: si consulta, non è la destinazione dei file di lavoro).
 
 Se un file di lavoro diventa un risultato da conservare, va spostato/salvato secondo la convenzione dei risultati; per tutto il resto la destinazione è `files`.
 
@@ -63,7 +63,7 @@ Di seguito i target autorizzati da considerare come scope (URL, domini o IP) e l
 
 ```
 # Domini / URL / host autorizzati (uno per riga)
-
+http://154.57.164.82:30794/
 
 # Range IP autorizzati (CIDR)
 
