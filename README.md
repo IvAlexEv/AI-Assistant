@@ -20,11 +20,10 @@ The goal is not to replace the pentester, but to create a workflow where human i
  
 # Setup
  
-VS Code + Claude Code + Burp Suite (via MCP)
- 
 ```
-VS Code (+ Claude Code)
-  └── MCP ─── Burp Suite ──> app target
+VS Code + Claude Code
+        └── Burp Suite (via MCP)
+                └── Target
 ```
  
 ## Requirements
@@ -36,3 +35,6 @@ VS Code (+ Claude Code)
 
 ## Intallation
 
+```
+
+```
