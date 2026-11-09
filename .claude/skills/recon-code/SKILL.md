@@ -1,14 +1,14 @@
 ---
 name: recon-code
 description: >-
-  Fase di ricognizione (recon) in modalità white-box su un target web/API in-scope, concentrata sull'analisi statica del CODICE SORGENTE dell'applicazione. Controlla se è presente la cartella `code` con il sorgente e, in tal caso, lo usa direttamente per estrarre funzionalità, architettura, stack, configurazione, endpoint/route, gestione auth e superfici d'attacco, partendo SEMPRE anche dalla cartella RESULT e dalla cronologia Burp per correlare codice e comportamento a runtime.
+  Fase di ricognizione (recon) in modalità white-box su un target web/API in-scope, concentrata sull'analisi statica del CODICE SORGENTE dell'applicazione. Controlla se è presente la cartella `code` con il sorgente e, in tal caso, lo usa direttamente per estrarre funzionalità, architettura, stack, configurazione, endpoint/route, gestione auth e superfici d'attacco, partendo SEMPRE anche dalla cartella result e dalla cronologia Burp per correlare codice e comportamento a runtime.
   Usare quando il tester chiede un recon white-box / analisi del codice / source review iniziale, o quando è disponibile il sorgente dell'applicazione da mappare.
-  Produce un file di stato consolidato in RESULT da poter usare nelle altre skill.
+  Produce un file di stato consolidato in result da poter usare nelle altre skill.
 ---
 
 # Skill: recon_code (white-box)
 
-Ricognizione ordinata e accurata di un target web/API **in-scope** partendo dal **codice sorgente**, per comprendere l'applicazione e tutte le sue funzionalità e per raccogliere le informazioni che serviranno alle skill successive. Al termine produce un **file di stato** in `RESULT`.
+Ricognizione ordinata e accurata di un target web/API **in-scope** partendo dal **codice sorgente**, per comprendere l'applicazione e tutte le sue funzionalità e per raccogliere le informazioni che serviranno alle skill successive. Al termine produce un **file di stato** in `result`.
 
 Questa skill segue le regole del `CLAUDE.md` del progetto. In particolare: solo target in-scope, tutte le interazioni verso il target passano dai tool MCP di Burp, e se manca un'informazione **si chiede** invece di assumere.
 
@@ -24,9 +24,9 @@ Questa skill segue le regole del `CLAUDE.md` del progetto. In particolare: solo 
    - **Se `code` è presente**: è la fonte primaria di questa skill, usala direttamente.
    - **Se `code` è assente o incompleta**: fermati e chiedi al tester dove si trova il sorgente (o se va usato un altro percorso). Non inventare struttura o contenuti.
 3. **Leggi lo stato esistente.**
-   - Controlla la cartella `RESULT`: se esiste già un file di recon (black-box o white-box) per questo target, **riprendi da lì** e integra, non ricominciare da zero. Se esiste un recon black-box, usalo per **correlare** codice e comportamento reale.
+   - Controlla la cartella `result`: se esiste già un file di recon (black-box o white-box) per questo target, **riprendi da lì** e integra, non ricominciare da zero. Se esiste un recon black-box, usalo per **correlare** codice e comportamento reale.
    - Leggi la cronologia Burp (`get_proxy_http_history` / `get_proxy_http_history_regex`, filtrando per host in-scope): utile per collegare route del codice a richieste reali.
-4. **Raccogli il contesto mancante dal tester.** Se per analizzare bene servono cose non presenti nel codice, nel `RESULT` né nel `CLAUDE.md`, chiedile prima di partire, ad es.:
+4. **Raccogli il contesto mancante dal tester.** Se per analizzare bene servono cose non presenti nel codice, nel `result` né nel `CLAUDE.md`, chiedile prima di partire, ad es.:
    - Quale parte del codice corrisponde al target in-scope (mono-repo, più servizi).
    - Framework/linguaggio se non evidente, come viene fatto il build/deploy.
    - Aree del codice fuori scope o da ignorare (librerie di terze parti, vendor).
@@ -59,7 +59,7 @@ Analizza il codice in modo **ordinato**, non a caso, coprendo:
 5. **Configurazione e segreti**: parametri di sicurezza, header, CORS, cookie, feature flag; **credenziali/API key/segreti** hardcoded o nei file di config (segnalali, senza riprodurre valori sensibili più del necessario per identificarli).
 6. **Dipendenze**: librerie e versioni, con attenzione a componenti datati o notoriamente vulnerabili (ricerca CVE out-of-band ammessa).
 
-File di lavoro intermedi (mappe grezze, elenchi di route, note di parsing) vanno nella cartella `files`; il risultato consolidato va in `RESULT` (§4). Se qualcosa nel codice non è chiaro o manca un pezzo, **chiedi** invece di assumere.
+File di lavoro intermedi (mappe grezze, elenchi di route, note di parsing) vanno nella cartella `files`; il risultato consolidato va in `result` (§4). Se qualcosa nel codice non è chiaro o manca un pezzo, **chiedi** invece di assumere.
 
 ---
 
@@ -77,9 +77,9 @@ Consolida quanto raccolto e ragiona sull'applicazione:
 
 ## 4. Output: file di stato del recon (white-box)
 
-Al termine produci **un unico file accurato** nella cartella `RESULT`, che rappresenta la memoria e lo stato attuale della fase di recon white-box e sarà la base per le skill successive.
+Al termine produci **un unico file accurato** nella cartella `result`, che rappresenta la memoria e lo stato attuale della fase di recon white-box e sarà la base per le skill successive.
 
-- **Cartella**: `RESULT`
+- **Cartella**: `result`
 - **Nome suggerito**: `recon_code_<host-o-target>.md`
 - Se un file di recon white-box per lo stesso target esiste già, **aggiornalo** mantenendo lo storico delle sezioni, invece di crearne uno nuovo scollegato.
 
