@@ -63,7 +63,7 @@ Di seguito i target autorizzati da considerare come scope (URL, domini o IP) e l
 
 ```
 # Domini / URL / host autorizzati (uno per riga)
-http://154.57.164.82:30794/
+
 
 # Range IP autorizzati (CIDR)
 
