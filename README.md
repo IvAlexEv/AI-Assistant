@@ -84,9 +84,7 @@ winget install EclipseAdoptium.Temurin.21.JDK   (<- Windows)
 ```
 7. Connect Claude Code to Burp
 ```bash
-claude mcp add burp --scope user -- \
-  java -jar "/<PATH>/mcp-proxy.jar" \
-  --sse-url http://127.0.0.1:9876/sse
+claude mcp add burp --scope user -- java -jar "/<PATH>/mcp-proxy.jar" --sse-url http://127.0.0.1:9876/sse
 claude mcp list
 ```
 > After completing setup, restart your terminal, VS Code, and the Claude Code session so all changes take effect. <br>
