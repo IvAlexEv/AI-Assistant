@@ -45,7 +45,7 @@ VS Code + Claude Code
 - [Claude Code extension](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code) for VS Code
 - [Account Claude Pro](https://claude.ai) + CVP ([Cyber Verification Program](https://support.claude.com/en/articles/14604842-cyber-verification-program))
 - [Burp Suite](https://portswigger.net/burp/downloads) (Community or Pro)
-- [Java JDK](https://adoptium.net/temurin/releases)
+- [Java JDK](https://adoptium.net/temurin/releases) (>= 21)
 
 
 ## Setup
@@ -63,28 +63,29 @@ sudo apt install ./code.deb
 ```bash
 code --install-extension anthropic.claude-code
 ```
-3. Install [Claude Code CLI](https://code.claude.com/docs/en/setup#install-claude-code)
+3. Install [Claude Code CLI](https://code.claude.com/docs/en/setup#install-claude-code) and verify that it is in the PATH.
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 # winget install --id Anthropic.ClaudeCode   (<- Windows)
 ```
-4. Install [Burp Suite](https://portswigger.net/burp/downloads) (Community or Pro)
+4. Install [Burp Suite](https://portswigger.net/burp/downloads) (Community or Pro).
 ```bash
 wget -O burp_install.sh 'https://portswigger.net/burp/releases/download?product=desktop&type=Linux'
 chmod +x burp_install.sh
 ./burp_install.sh
 ```
-5. Install the official [MCP extension for Burp Suite](https://github.com/portswigger/mcp-server)
+5. Install the official [MCP extension for Burp Suite](https://github.com/portswigger/mcp-server).
    1. `Extensions` tab in Burp Suite -> `BApp Store` -> Search `MCP Server` -> Install
-   2. `MCP` tab in Burp Suite -> check `Enabled` (default: `http://127.0.0.1:9876`) - `Extract server proxy jar` and store it in a safe and fixed place.
-6. Install [Java JDK](https://adoptium.net/temurin/releases)
+   2. `MCP` tab in Burp Suite -> check `Enabled` (default: `http://127.0.0.1:9876`) - `Extract server proxy jar` and store it in a safe and fixed place
+6. Install [Java JDK](https://adoptium.net/temurin/releases) (>= 21) and verify that it is in the PATH.
 ```bash
 sudo apt install default-jre
 winget install EclipseAdoptium.Temurin.21.JDK   (<- Windows)
 ```
-7. Connect Claude Code to Burp
+7. Connect Claude Code to Burp. <br>
+<i>If unable to connect, just run the “java” command and view the error message.</i>
 ```bash
-claude mcp add burp --scope user -- java -jar "/<PATH>/mcp-proxy.jar" --sse-url http://127.0.0.1:9876/sse
+claude mcp add burp --scope user -- java -jar "/<PATH>/mcp-proxy.jar" --sse-url http://127.0.0.1:9876
 claude mcp list
 ```
 > After completing setup, restart your terminal, VS Code, and the Claude Code session so all changes take effect. <br>
@@ -111,7 +112,7 @@ code AI-Assistant
 
 ## Disclaimer
 
-- **Confidential data** <br>
+- **Confidential Data** <br>
 If the target app's source code is proprietary to the client, check the engagement's confidentiality clauses before sharing it with Claude.
-- **Burp history** <br>
+- **Burp History** <br>
 Claude can read the HTTP history in Burp Suite. Avoid sending unnecessary sensitive data (e.g. credentials) through Burp during the engagement.
